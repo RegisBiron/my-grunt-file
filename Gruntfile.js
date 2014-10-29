@@ -1,4 +1,3 @@
-
 module.exports = function (grunt) {
 
     // Load grunt tasks automatically
@@ -24,6 +23,13 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
+            autoprefixer: {
+                files: ['.tmp/styles/*.css'],
+                tasks: ['autoprefixer'],
+                options: {
+                    livereload: true
+                }
+            },
             styles: {
                 files: ['<%= config.dev %>/scss/{,*/}*.scss'],
                 tasks: ['sass:dev'],
@@ -42,13 +48,11 @@ module.exports = function (grunt) {
             }
         },
 
-        // The actual grunt server settings
         connect: {
             options: {
                 port: 9000,
                 open: true,
                 livereload: 35729,
-                // Change this to '0.0.0.0' to access the server from outside
                 hostname: 'localhost'
             },
             livereload: {
@@ -70,7 +74,7 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: '<%= config.dev %>/scss/',
                 src: ['*.scss'],
-                dest: '<%= config.dist %>/styles/',
+                dest: '.tmp/styles/',
                 ext: '.css'
             },
             dev: {
@@ -82,9 +86,28 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: '<%= config.dev %>/scss/',
                 src: ['*.scss'],
-                dest: '<%= config.dev %>/styles/',
+                dest: '.tmp/styles/',
                 ext: '.css'
             }
+        },
+
+        autoprefixer: {
+            options: {
+              browsers: ['last 1 version']
+            },
+            multiple_files: {
+              expand: true,
+              flatten: true,
+              src: '.tmp/styles/*.css',
+              dest: ''
+            },
+            sourcemap: {
+                options: {
+                    map: true
+                },
+                src: '.tmp/styles/',
+                dest: '<%= config.dev %>/styles/'
+            },
         },
 
         concat: {   
@@ -123,7 +146,6 @@ module.exports = function (grunt) {
             }
         }
     });
-
 
     grunt.registerTask('serve', function (target) {
 
