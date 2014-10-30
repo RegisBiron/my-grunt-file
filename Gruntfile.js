@@ -25,7 +25,7 @@ module.exports = function (grunt) {
             },
             autoprefixer: {
                 files: ['.tmp/styles/*.css'],
-                tasks: ['autoprefixer'],
+                tasks: ['autoprefixer:dev'],
                 options: {
                     livereload: true
                 }
@@ -92,22 +92,26 @@ module.exports = function (grunt) {
         },
 
         autoprefixer: {
-            options: {
-              browsers: ['last 1 version']
-            },
-            multiple_files: {
-              expand: true,
-              flatten: true,
-              src: '.tmp/styles/*.css',
-              dest: ''
-            },
-            sourcemap: {
+            dist: {
                 options: {
+                    browsers: ['last 1 version']
+                },
+                files: {
+                    '<%= config.dist %>/style.css': ['.tmp/styles/style.css']
+                }
+            },
+            dev: {
+                options: {
+                    browsers: ['last 1 version'],
                     map: true
                 },
-                src: '.tmp/styles/',
-                dest: '<%= config.dev %>/styles/'
-            },
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/styles/',
+                    src: '*.css',
+                    dest: '<%= config.dev %>/styles'
+                }]
+            }
         },
 
         concat: {   
