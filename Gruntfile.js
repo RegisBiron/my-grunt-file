@@ -15,7 +15,6 @@ module.exports = function (grunt) {
         // Project settings
         config: config,
 
-        // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
                 files: ['<%= config.dev %>/scripts/{,*/}*.js'],
