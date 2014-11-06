@@ -68,7 +68,8 @@ module.exports = function (grunt) {
         sass: {
             dist: {
                 options: {
-                    style: 'compressed'
+                    style: 'compressed',
+                    sourcemap: 'none'
                 },
                 expand: true,
                 cwd: '<%= config.dev %>/scss/',
@@ -93,11 +94,15 @@ module.exports = function (grunt) {
         autoprefixer: {
             dist: {
                 options: {
-                    browsers: ['last 1 version']
+                    browsers: ['last 1 version'],
+                    style: 'compressed'
                 },
-                files: {
-                    '<%= config.dist %>/style.css': ['.tmp/styles/style.css']
-                }
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/styles/',
+                    src: '*.css',
+                    dest: '<%= config.dist %>/styles'
+                }]
             },
             dev: {
                 options: {
