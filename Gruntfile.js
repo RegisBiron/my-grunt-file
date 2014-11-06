@@ -118,7 +118,7 @@ module.exports = function (grunt) {
             }
         },
 
-        concat: {   
+        concat: {
             dist: {
                 src: [
                     '<%= config.dev %>/scripts/*.js'
@@ -139,6 +139,14 @@ module.exports = function (grunt) {
                 src: [".tmp/"]
             }
         },
+
+        //Include wiredep when working with Bower
+        // wiredep: {
+        //     app: {
+        //         src: ['index.html'],
+        //         exclude: ['bower_components/modernizr/modernizr.js']
+        //     }
+        // },
 
         responsive_images: {
             dist: {
@@ -173,6 +181,6 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-     
+
     ]);
 };
